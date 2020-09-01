@@ -82,17 +82,19 @@ class App extends Component {
         <div className="poke-fetch">
           <h3>Enter a number to search for a pokemon</h3>
           <div className="input-group">
-            <input
-              value={textInput}
-              type="number"
-              className="input"
-              onChange={(ev) =>
-                this.setState({ textInput: ev.target.value, error: false })
-              }
-            />
-            <button className="submit-button" onClick={this.getPokemon}>
-              Search Pokemon
-            </button>
+            <form onSubmit={this.getPokemon}>
+              <input
+                value={textInput}
+                type="number"
+                className="input"
+                onChange={(ev) =>
+                  this.setState({ textInput: ev.target.value, error: false })
+                }
+              />
+              <button className="submit-button" type="submit">
+                Search Pokemon
+              </button>
+            </form>
           </div>
           {error ? (
             <div className="error-container">
@@ -123,7 +125,8 @@ class App extends Component {
     );
   }
 
-  getPokemon = () => {
+  getPokemon = (evt) => {
+    evt.preventDefault();
     const { textInput } = this.state;
     if (textInput.length) {
       const url = `https://pokeapi.co/api/v2/pokemon/${textInput}`;
