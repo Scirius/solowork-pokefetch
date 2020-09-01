@@ -16,21 +16,16 @@ class App extends Component {
   // parses moves from API data object
   renderMoves() {
     let moves = [];
-    //console.log(this.state.pokemon.abilities);
     for (let key in this.state.pokemon.moves) {
-      //console.log(this.state.pokemon.abilities[key].ability.name);
-      moves.push(<li>{this.state.pokemon.moves[key].move.name}</li>);
+      moves.push(<li key={key}>{this.state.pokemon.moves[key].move.name}</li>);
     }
-
     return moves;
   }
   // parses types from API data object
   renderTypes() {
     let types = [];
-    //console.log(this.state.pokemon.abilities);
     for (let key in this.state.pokemon.types) {
-      //console.log(this.state.pokemon.abilities[key].ability.name);
-      types.push(<li>{this.state.pokemon.types[key].type.name}</li>);
+      types.push(<li key={key}>{this.state.pokemon.types[key].type.name}</li>);
     }
 
     return types;
@@ -39,10 +34,10 @@ class App extends Component {
   // parses abilities from API data object
   renderAbilities() {
     let abilities = [];
-    //console.log(this.state.pokemon.abilities);
     for (let key in this.state.pokemon.abilities) {
-      //console.log(this.state.pokemon.abilities[key].ability.name);
-      abilities.push(<li>{this.state.pokemon.abilities[key].ability.name}</li>);
+      abilities.push(
+        <li key={key}>{this.state.pokemon.abilities[key].ability.name}</li>
+      );
     }
 
     return abilities;
@@ -51,9 +46,10 @@ class App extends Component {
   // parses sprites from API data object
   renderSprites() {
     let sprites = [];
+    // parse through all objects in sprites
     for (let key in this.state.pokemon.sprites) {
+      // only take those that contain string (exclude child objects and undefined)
       if (typeof this.state.pokemon.sprites[key] === "string") {
-        //console.log(this.state.pokemon.sprites[key]);
         let desc = `Pokemon (${key})`;
         sprites.push(
           <img
@@ -133,7 +129,7 @@ class App extends Component {
       fetch(url)
         .then((response) => response.json())
         .then((data) => {
-          // console.log("Fetched pokemon " + data.name);
+          console.log("Fetched pokemon " + data.name);
           console.log(data);
           this.setState({ pokemon: data });
         })
